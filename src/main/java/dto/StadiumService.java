@@ -22,11 +22,9 @@ public class StadiumService {
     // 3.1 야구장 등록
     //    요청 : 야구장등록?name=잠실야구장
     //    응답 : 성공이라는 메시지를 출력한다.
-    public void StadiumRegister(String request)throws Exception{
-        String[] parts = request.split("\\?");
-        String playerStatus = parts[1];
-        String[] partss = playerStatus.split("=");
-        String name = partss[1];
+    public void StadiumRegister(String requestContent)throws Exception{
+        String[] parts = requestContent.split("=");
+        String name = parts[1];
         stadiumDAO.insert(name);
         System.out.println("성공");
     }
@@ -34,7 +32,7 @@ public class StadiumService {
     // 3.2 전체 야구장 목록보기
     //    요청 : 야구장목록
     //    응답 : 야구장 목록은 Model -> Stadium을 List에 담아서 출력한다.
-    public void StadiumViewList(String request)throws Exception{
+    public void StadiumViewList(String requestContent)throws Exception{
         List<Stadium> StadiumList = stadiumDAO.findAll();
         StadiumList.forEach(stadium -> {
             System.out.println("야구장 이름 : " + stadium.getName());
