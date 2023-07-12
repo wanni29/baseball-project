@@ -20,7 +20,7 @@ CREATE TABLE team(
 
 CREATE TABLE player(
                        id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                       team_id INT NOT NULL,
+                       team_id INT,
                        name VARCHAR(256) NOT NULL,
                        position VARCHAR(256) NOT NULL,
                        created_at TIMESTAMP NOT NULL,
