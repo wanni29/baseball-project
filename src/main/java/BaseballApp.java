@@ -1,36 +1,32 @@
 import db.DBConnection;
-import model.outplayer.OutPlayer;
-import model.outplayer.OutPlayerDAO;
+import dto.OutPlayerRespDTO;
+import dto.OutPlayerService;
+import dto.TeamService;
 import model.player.Player;
 import model.player.PlayerDAO;
+import model.stadium.Stadium;
+import model.stadium.StadiumDAO;
+import model.team.TeamDAO;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.List;
+import java.util.Scanner;
 
 public class BaseballApp {
     public static void main(String[] args) throws Exception {
-
         Connection connection = DBConnection.getInstance();
 
-        OutPlayerDAO outPlayerDAO = new OutPlayerDAO(connection);
         PlayerDAO playerDAO = new PlayerDAO(connection);
+        TeamDAO teamDAO = new TeamDAO(connection);
+        TeamService teamService = new TeamService(connection, teamDAO, playerDAO);
+        OutPlayerService outPlayerService = new OutPlayerService(connection);
 
-        List<OutPlayer> dtos = outPlayerDAO.findAll();
-        for (OutPlayer dto : dtos) {
-            System.out.println("사유가 있는 선수의 번호 : " + dto.getPlayerId());
-            System.out.println("해당 사유 : " + dto.getReason());
-            System.out.println();
-        }
-
-        System.out.println(" ========================================================= ");
-        System.out.println();
+        System.out.println(outPlayerService.outPlayerList());
 
 
-        OutPlayer outPlayer = outPlayerDAO.findById(10);
-        System.out.println("사유가 있는 선수의 번호 : " + outPlayer.getPlayerId());
-        System.out.println("해당 사유 : " + outPlayer.getReason());
+
+
+
 
     }
 }
-

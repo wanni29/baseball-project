@@ -13,13 +13,13 @@ public class OutPlayerDAO {
     // U - upadate
     // D - delete
 
-    private Connection connection;
+    private static Connection connection;
 
     public OutPlayerDAO(Connection connection) {
         this.connection = connection;
     }
 
-    public void insert(Integer player_id, String reason) throws SQLException {
+    public static void insert(Integer player_id, String reason) throws SQLException {
         String sql = "insert into out_player( player_id, reason, created_at) values(?, ?, now())";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -70,8 +70,16 @@ public class OutPlayerDAO {
     public OutPlayer findById(Integer player_id) throws SQLException {
         OutPlayer outPlayer = null;
         String sql = "select *\n" +
-                "from out_player\n" +
-                "where player_id = ?";
+                "from player;\n" +
+                "SELECT\n" +
+                "    o_tb.player_id,\n" +
+                "    o_tb.reason,\n" +
+                "    p_tb.team_id,\n" +
+                "    p_tb.name,\n" +
+                "    p_tb.position\n" +
+                "FROM\n" +
+                "    out_player o_tb\n" +
+                "    INNER JOIN player p_tb ON p_tb.id = o_tb.player_id;";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, player_id);

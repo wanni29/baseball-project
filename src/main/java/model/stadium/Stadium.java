@@ -9,12 +9,12 @@ public class Stadium {
     // 모델링 자리 입니다 : )
     private Integer id;
     private String name;
-    private Timestamp createdAt;
+    private Timestamp createAt;
 
     @Builder
-    public Stadium(Integer id, String name, Timestamp createdAt) {
+    public Stadium(Integer id, String name, Timestamp createAt) {
         this.id = id;
         this.name = name;
-        this.createdAt = createdAt;
+        this.createAt = createAt;
     }
 }
