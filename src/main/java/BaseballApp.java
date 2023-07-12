@@ -16,15 +16,15 @@ import java.util.Scanner;
 
 @Getter
 public class BaseballApp {
-    public static String stadiumRegister = "야구장등록";
-    public static String stadiumViewList = "야구장목록";
-    public static String teamRegister = "팀등록";
-    public static String teamViewList = "팀목록";
-    public static String playerRegister = "선수등록";
-    public static String playerTeamViewList = "선수목록";
-    public static String outPlayerRegister = "퇴출등록";
-    public static String outPlayerViewList = "퇴출목록";
-    public static String positionPlayerViewList = "포지션별목록";
+    private static String stadiumRegister = "야구장등록";
+    private static String stadiumViewList = "야구장목록";
+    private static String teamRegister = "팀등록";
+    private static String teamViewList = "팀목록";
+    private static String playerRegister = "선수등록";
+    private static String playerTeamViewList = "선수목록";
+    private static String outPlayerRegister = "퇴출등록";
+    private static String outPlayerViewList = "퇴출목록";
+    private static String positionPlayerViewList = "포지션별목록";
 
     public static void main(String[] args) throws Exception {
 
