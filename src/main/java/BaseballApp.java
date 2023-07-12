@@ -10,6 +10,7 @@ import model.team.TeamDAO;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Scanner;
 
 public class BaseballApp {
@@ -21,10 +22,13 @@ public class BaseballApp {
         TeamService teamService = new TeamService(connection, teamDAO, playerDAO);
         OutPlayerService outPlayerService = new OutPlayerService(connection);
 
-        System.out.println(outPlayerService.outPlayerList());
-
-
-
+        List<OutPlayerRespDTO> dtos =  outPlayerService.outPlayerList();
+        for (OutPlayerRespDTO dto : dtos) {
+            System.out.println(dto.getName());
+            System.out.println(dto.getTeamId());
+            System.out.println(dto.getReason());
+            System.out.println(dto.getPlayerId());
+        }
 
 
 

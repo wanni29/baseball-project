@@ -3,13 +3,13 @@ package model.outplayer;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.sql.Timestamp;
 
 
 
-@Getter
-
+@Setter
 public class OutPlayer {
     // 모델링 자리 입니다 : )
 

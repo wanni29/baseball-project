@@ -2,11 +2,11 @@ package dto;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.sql.Timestamp;
 
 @Getter
-
 public class OutPlayerRespDTO {
 
     // 화면에 뿌려줄 데이터 모델링

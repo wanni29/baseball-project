@@ -6,6 +6,7 @@ import model.player.PlayerDAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 public class OutPlayerService {
@@ -42,7 +43,7 @@ public class OutPlayerService {
 
     // 퇴출 선수 목록 조회
     public List<OutPlayerRespDTO> outPlayerList() throws Exception {
-        List<OutPlayerRespDTO> outPlayerRespDTOS = null;
+        List<OutPlayerRespDTO> outPlayerRespDTOS = new ArrayList<>();
         String sql = "SELECT\n" +
                 "    o_tb.player_id,\n" +
                 "    o_tb.reason,\n" +
@@ -69,6 +70,4 @@ public class OutPlayerService {
         }
         return outPlayerRespDTOS;
     }
-
-
 }
