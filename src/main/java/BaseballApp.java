@@ -46,6 +46,8 @@ public class BaseballApp {
             stadiumService.StadiumViewList();
         }else if(request.equals(teamViewList)){
             teamService.TeamViewList();
+        }else if(request.equals(outPlayerViewList)){
+            outPlayerService.outPlayerList();
         }else{
             String[] requestSplit = request.split("\\?");
             String requestConfirm = requestSplit[0];

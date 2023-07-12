@@ -40,32 +40,16 @@ public class OutPlayerService {
     }
 
     // 퇴출 선수 목록 조회
-    public List<OutPlayerRespDTO> outPlayerList() throws Exception {
-        List<OutPlayerRespDTO> outPlayerRespDTOS = new ArrayList<>();
-        String sql = "SELECT\n" +
-                "    o_tb.player_id,\n" +
-                "    o_tb.reason,\n" +
-                "    o_tb.created_at,\n" +
-                "    p_tb.team_id,\n" +
-                "    p_tb.name,\n" +
-                "    p_tb.position\n" +
-                "FROM\n" +
-                "    out_player o_tb\n" +
-                "    INNER JOIN player p_tb ON p_tb.id = o_tb.player_id";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            ResultSet rs = statement.executeQuery();
-            while (rs.next()) {
-                OutPlayerRespDTO dto = OutPlayerRespDTO.builder()
-                        .teamId(rs.getInt("team_id"))
-                        .name(rs.getString("name"))
-                        .position(rs.getString("position"))
-                        .playerId(rs.getInt("player_id"))
-                        .reason(rs.getString("reason"))
-                        .createdAt(rs.getTimestamp("created_at"))
-                        .build();
-                outPlayerRespDTOS.add(dto);
-            }
-        }
-        return outPlayerRespDTOS;
+    public void outPlayerList() throws Exception {
+        List<OutPlayerRespDTO> outPlayers = outPlayerDAO.findAll();
+        outPlayers.forEach(outPlayerRespDTO -> {
+            System.out.println("선수 번호 : " + outPlayerRespDTO.getPlayerId());
+            System.out.println("선수 이름 : " + outPlayerRespDTO.getName());
+            System.out.println("선수 포지션 : " + outPlayerRespDTO.getPosition());
+            System.out.println("퇴출 이유 : " + outPlayerRespDTO.getReason());
+            System.out.println("퇴출일 : " + outPlayerRespDTO.getCreatedAt());
+            System.out.println("----------------------------------------------");
+        });
     }
+
 }
