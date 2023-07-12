@@ -11,32 +11,33 @@ import java.util.List;
 
 public class StadiumService {
 
-    public static void main(String[] args) throws SQLException {
-        // 소켓 받아오기
-        Connection connection = DBConnection.getInstance();
+    Connection connection;
+    StadiumDAO stadiumDAO;
 
-        // db 접근하기
-        StadiumDAO stadiumDAO = new StadiumDAO(connection);
+    public StadiumService(Connection connection, StadiumDAO stadiumDAO) {
+        this.connection = connection;
+        this.stadiumDAO = stadiumDAO;
+    }
 
-        // 야구장 등록
-        stadiumDAO.insert("lotte");
+    // 3.1 야구장 등록
+    //    요청 : 야구장등록?name=잠실야구장
+    //    응답 : 성공이라는 메시지를 출력한다.
+    public void StadiumRegister(String request)throws Exception{
+        String[] parts = request.split("\\?");
+        String playerStatus = parts[1];
+        String[] partss = playerStatus.split("=");
+        String name = partss[1];
+        stadiumDAO.insert(name);
+        System.out.println("성공");
+    }
 
-        // 전체 야구장 목록
+    // 3.2 전체 야구장 목록보기
+    //    요청 : 야구장목록
+    //    응답 : 야구장 목록은 Model -> Stadium을 List에 담아서 출력한다.
+    public void StadiumViewList(String request)throws Exception{
         List<Stadium> StadiumList = stadiumDAO.findAll();
         StadiumList.forEach(stadium -> {
             System.out.println("야구장 이름 : " + stadium.getName());
         });
-
-
-//        // 3.1 야구장 등록
-//        public void StadiumRegister(){
-//
-//        }
-//
-//        // 3.2 전체 야구장 목록보기
-//        public void StadiumViewList(){
-//
-//        }
     }
-
 }

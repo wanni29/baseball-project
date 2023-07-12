@@ -1,6 +1,7 @@
 package model.team;
 
 import dto.TeamRespDTO;
+import model.player.Player;
 import model.stadium.Stadium;
 
 import java.sql.Connection;
@@ -56,7 +57,7 @@ public class TeamDAO {
 
     // team 전체 조회
     public List<TeamRespDTO> findAll()throws SQLException{
-        List<TeamRespDTO> TeamList = new ArrayList<>();
+        List<TeamRespDTO> teamList = new ArrayList<>();
         String sql = "select\n" +
                 "st.id,\n" +
                 "st.name,\n" +
@@ -74,19 +75,19 @@ public class TeamDAO {
                         .teamName(rs.getString("te.name"))
                         .reatedAt(rs.getTimestamp("te.reated_at"))
                         .build();
-                TeamList.add(dto);
+                teamList.add(dto);
             }
         }
-        return TeamList;
+        return teamList;
     }
 
     // team 상세 조회 (id 입력시 조회)
-    public Stadium findById(String name)throws SQLException{
+    public Stadium findById(int id)throws SQLException{
         Stadium team = null;
-        String sql = "select * from team where name = ?";
+        String sql = "select * from team where id = ?";
 
         try (PreparedStatement pstmt = connection.prepareStatement(sql)){
-            pstmt.setString(1, name);
+            pstmt.setInt(1, id);
             ResultSet rs = pstmt.executeQuery();
             if(rs.next()){
                 team = new Stadium(
@@ -99,4 +100,5 @@ public class TeamDAO {
         }
         return team;
     }
+
 }

@@ -1,5 +1,6 @@
 package model.player;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -23,5 +24,8 @@ public class Player {
         this.name = name;
         this.position = position;
         this.createdAt = createdAt;
+    }
+
+    public Player(String name, String position, Timestamp createdAt) {
     }
 }

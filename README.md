@@ -18,12 +18,13 @@ CREATE TABLE team(
                      reated_at TIMESTAMP NOT NULL
 )ENGINE=InnoDB DEFAULT CHARSET = utf8mb4;
 CREATE TABLE player(
-                       id INT NOT NULL AUTO_INCREMENT primary key,
+                       id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
                        team_id INT NOT NULL,
                        name VARCHAR(256) NOT NULL,
                        position VARCHAR(256) NOT NULL,
-                       created_at TIMESTAMP NOT NULL
-)ENGINE=InnoDB DEFAULT CHARSET = utf8mb4;
+                       created_at TIMESTAMP NOT NULL,
+                       CONSTRAINT unique_position_per_team UNIQUE (team_id, position)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 CREATE TABLE out_player(
                            id INT NOT NULL AUTO_INCREMENT primary key,
                            player_id INT NOT NULL,
