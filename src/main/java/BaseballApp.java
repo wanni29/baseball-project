@@ -38,6 +38,7 @@ public class BaseballApp {
         OutPlayerDAO outPlayerDAO = new OutPlayerDAO(connection);
         OutPlayerService outPlayerService = new OutPlayerService(connection);
 
+
         Scanner sc = new Scanner(System.in);
         System.out.println("어떤 기능을 요청하시겠습니다?");
         String request = sc.next();

@@ -101,12 +101,15 @@ public class PlayerDAO {
 
     public List<Player> findByTeamId(int teamId) throws SQLException {
         List<Player> playerList = new ArrayList<>();
-        String sql = "SELECT name, position, created_at FROM player WHERE team_id = ?";
+        String sql = "SELECT * FROM player WHERE team_id = ?";
+
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, teamId);
             try (ResultSet rs = statement.executeQuery()) {
                 while (rs.next()) {
                     Player player = new Player(
+                            rs.getInt("id"),
+                            rs.getInt("team_id"),
                             rs.getString("name"),
                             rs.getString("position"),
                             rs.getTimestamp("created_at")
@@ -117,4 +120,5 @@ public class PlayerDAO {
         }
         return playerList;
     }
+
 }

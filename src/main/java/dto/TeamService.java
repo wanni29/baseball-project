@@ -56,15 +56,14 @@ public class TeamService {
         // 응답 : 선수 목록은 Model -> Player를 List에 담아서 출력한다. (team_id는 출력하지 않아도 된다)
         public void TeamPlayerList(String requestContent)throws Exception{
             String[] parts = requestContent.split("=");
-            int stadiumId = Integer.parseInt(parts[1]);
+            int teamId = Integer.parseInt(parts[1]);
 
-            List<Player> playerList = new ArrayList<>(playerDAO.findByTeamId(stadiumId));
+            List<Player> playerList = new ArrayList<>(playerDAO.findByTeamId(teamId));
             playerList.forEach(Player -> {
                 System.out.println("선수 이름 : " + Player.getName());
                 System.out.println("포지션 : " + Player.getPosition());
                 System.out.println("생성일 : " + Player.getCreatedAt());
                 System.out.println("----------------------------------------------");
             });
-            System.out.println("성공");
         }
 }

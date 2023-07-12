@@ -26,6 +26,4 @@ public class Player {
         this.createdAt = createdAt;
     }
 
-    public Player(String name, String position, Timestamp createdAt) {
-    }
 }
