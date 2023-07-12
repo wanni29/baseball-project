@@ -19,11 +19,11 @@ public class OutPlayerDAO {
         this.connection = connection;
     }
 
-    public void insert(Integer player_id, String reason) throws SQLException {
+    public void insert(Integer playerId, String reason) throws SQLException {
         String sql = "insert into out_player( player_id, reason, created_at) values(?, ?, now())";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, player_id);
+            statement.setInt(1, playerId);
             statement.setString(2, reason);
             statement.executeUpdate();
         }

@@ -36,14 +36,15 @@ public class PlayerDAO {
 
     }
 
-    public void update(String position, Integer id) throws SQLException {
-        String sql = "update player\n" +
-                "set position = ?\n" +
-                "where id = ?";
-
+    public void update(Integer team_id, Integer player_id) throws SQLException {
+        String sql = "update player set team_id = ? where id = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, position);
-            statement.setInt(2, id);
+            if (team_id != null) {
+                statement.setInt(1, team_id);
+            } else {
+                statement.setNull(1, java.sql.Types.INTEGER);
+            }
+            statement.setInt(2, player_id);
             statement.executeUpdate();
         }
     }
@@ -85,7 +86,7 @@ public class PlayerDAO {
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
-                Player player  = new Player(
+                Player player = new Player(
                         rs.getInt("id"),
                         rs.getInt("team_id"),
                         rs.getString("name"),
