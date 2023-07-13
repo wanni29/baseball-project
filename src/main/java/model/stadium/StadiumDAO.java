@@ -41,11 +41,11 @@ public class StadiumDAO {
 
     // stadium 수정(id 입력시 name 수정)
     public void update(int id, String name)throws SQLException{
-        String sql = "update stadium set id = ? where name = ?";
+        String sql = "update stadium set name = ? where id = ?";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)){
-            statement.setInt(1,id);
-            statement.setString(2,name);
+            statement.setString(1,name);
+            statement.setInt(2,id);
             statement.executeUpdate();
         }
     }
@@ -61,7 +61,7 @@ public class StadiumDAO {
                 Stadium stadium = new Stadium(
                         rs.getInt("id"),
                         rs.getString("name"),
-                        rs.getTimestamp("create_at")
+                        rs.getTimestamp("created_at")
                 );
                 StadiumList.add(stadium);
             }
@@ -81,7 +81,7 @@ public class StadiumDAO {
                 stadium = new Stadium(
                         rs.getInt("id"),
                         rs.getString("name"),
-                        rs.getTimestamp("create_at")
+                        rs.getTimestamp("created_at")
                 );
             }
         }
