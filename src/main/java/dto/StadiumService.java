@@ -32,10 +32,15 @@ public class StadiumService {
     // 3.2 전체 야구장 목록보기
     //    요청 : 야구장목록
     //    응답 : 야구장 목록은 Model -> Stadium을 List에 담아서 출력한다.
-    public void StadiumViewList()throws Exception{
-        List<Stadium> StadiumList = stadiumDAO.findAll();
-        StadiumList.forEach(stadium -> {
-            System.out.println("야구장 이름 : " + stadium.getName());
-        });
+    public void StadiumViewList() throws Exception {
+        List<Stadium> stadiumList = stadiumDAO.findAll();
+        int length = stadiumList.size();
+
+        System.out.println("------ 야구장 목록 ------");
+        for (int i = 0; i < length; i++) {
+            Stadium stadium = stadiumList.get(i);
+            System.out.println((i+1)+ ":" + stadium.getName());
+        }
+        System.out.println("---------------------");
     }
 }

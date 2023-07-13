@@ -40,8 +40,24 @@ public class BaseballApp {
 
 
         Scanner sc = new Scanner(System.in);
+        System.out.println("---야구장 관리 프로그램---");
         System.out.println("어떤 기능을 요청하시겠습니다?");
+        System.out.println("1.야구장 등록");
+        System.out.println("2.야구장 목록");
+        System.out.println("3.팀 등록");
+        System.out.println("4.팀 목록");
+        System.out.println("5.선수 등록");
+        System.out.println("6.팀별 선수 목록");
+        System.out.println("7.선수 퇴출 등록");
+        System.out.println("8.퇴출 목록");
+        System.out.println("9.포지션별 목록");
+        System.out.println("10.프로그램 종료");
+        System.out.println("원하는 기능의 번호를 입력하세요 : ");
+
+
         String request = sc.next();
+
+
 
         if(request.equals(stadiumViewList)){
             stadiumService.StadiumViewList();

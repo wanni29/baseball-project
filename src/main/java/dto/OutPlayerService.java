@@ -6,6 +6,7 @@ import model.player.PlayerDAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,13 +43,16 @@ public class OutPlayerService {
     // 퇴출 선수 목록 조회
     public void outPlayerList() throws Exception {
         List<OutPlayerRespDTO> outPlayers = outPlayerDAO.findAll();
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+
+        System.out.println("------ 퇴출 목록 ------");
         outPlayers.forEach(outPlayerRespDTO -> {
             System.out.println("선수 번호 : " + outPlayerRespDTO.getPlayerId());
             System.out.println("선수 이름 : " + outPlayerRespDTO.getName());
             System.out.println("선수 포지션 : " + outPlayerRespDTO.getPosition());
             System.out.println("퇴출 이유 : " + outPlayerRespDTO.getReason());
-            System.out.println("퇴출일 : " + outPlayerRespDTO.getCreatedAt());
-            System.out.println("----------------------------------------------");
+            System.out.println("퇴출일 : " + dateFormatter.format(outPlayerRespDTO.getCreatedAt()));
+            System.out.println("--------------------");
         });
     }
 

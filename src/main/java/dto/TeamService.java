@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
+import java.text.SimpleDateFormat;
 
 public class TeamService {
 
@@ -40,15 +41,18 @@ public class TeamService {
         // 3.4 전체 팀 목록보기
         //요청 : 팀목록
         //응답 : 팀 목록은 Stadium 정보를 조인해서 출력해야 된다. TeamRespDTO가 필요하다.
-        public void TeamViewList()throws Exception{
-        List<TeamRespDTO> TeamList = teamDAO.findAll();
-        TeamList.forEach(teamRespDTO -> {
-            System.out.println("번호 : " + teamRespDTO.getId());
-            System.out.println("야구장 이름 : " + teamRespDTO.getStadiumName());
-            System.out.println("팀 이름 : " + teamRespDTO.getTeamName());
-            System.out.println("생성일 : " + teamRespDTO.getReatedAt());
-            System.out.println("----------------------------------------------");
-        });
+        public void TeamViewList() throws Exception {
+            List<TeamRespDTO> teamList = teamDAO.findAll();
+            SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+
+            System.out.println("------ 팀 목록 ------");
+            teamList.forEach(teamRespDTO -> {
+                System.out.println(teamRespDTO.getId() + "번");
+                System.out.println("팀 이름: " + teamRespDTO.getTeamName());
+                System.out.println("야구장 이름: " + teamRespDTO.getStadiumName());
+                System.out.println("창립일: " + dateFormatter.format(teamRespDTO.getReatedAt()));
+                System.out.println("--------------------");
+            });
         }
 
         // 3.6 팀별 선수 목록
@@ -57,12 +61,15 @@ public class TeamService {
         public void TeamPlayerList(String requestContent)throws Exception{
             String[] parts = requestContent.split("=");
             int teamId = Integer.parseInt(parts[1]);
+            SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 
             List<Player> playerList = new ArrayList<>(playerDAO.findByTeamId(teamId));
+            System.out.println("--------------- " + teamId + "번 팀의 선수 목록 ----------------");
             playerList.forEach(Player -> {
+                System.out.println("선수 번호 : " + Player.getId() + "번");
                 System.out.println("선수 이름 : " + Player.getName());
                 System.out.println("포지션 : " + Player.getPosition());
-                System.out.println("생성일 : " + Player.getCreatedAt());
+                System.out.println("입사일 : " + dateFormatter.format(Player.getCreatedAt()));
                 System.out.println("----------------------------------------------");
             });
         }
