@@ -29,6 +29,7 @@ public class BaseballApp {
 
     public static <InputMismatchException> void main(String[] args) throws Exception{
 
+        // 연결
         Connection connection = DBConnection.getInstance();
         StadiumDAO stadiumDAO = new StadiumDAO(connection);
         StadiumService stadiumService = new StadiumService(connection,stadiumDAO);
