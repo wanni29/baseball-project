@@ -1,20 +1,22 @@
 package dto;
 
 import model.player.PlayerDAO;
+import model.team.TeamDAO;
 
 import java.sql.Connection;
+import java.util.List;
 
 public class PlayerService {
 
     Connection connection;
     PlayerDAO playerDAO;
+    TeamDAO teamDAO;
 
-    public PlayerService(Connection connection) {
+    public PlayerService(Connection connection, PlayerDAO playerDAO, TeamDAO teamDAO) {
         this.connection = connection;
-        this.playerDAO = new PlayerDAO(connection);
+        this.playerDAO = playerDAO;
+        this.teamDAO = teamDAO;
     }
-
-
 
     public void addPlayer(String requestContent) throws Exception {
         String[] parts = requestContent.split("&");
@@ -31,6 +33,15 @@ public class PlayerService {
         System.out.println("성공");
     }
 
+    public void showMeThePlayer() throws Exception {
+        List<PositionRespDto> dtos = teamDAO.pivotStyle(1, 1, 2, 3);
+        System.out.println("포지션\t\tLG\t\t\tNC\t\t\tKIA");
+        for (PositionRespDto dto : dtos) {
+            System.out.println(dto.getPostion() + "  \t\t" + dto.getLG() + "\t\t" + dto.getNC() + "\t\t" + dto.getKIA());
 
+        }
+
+
+    }
 
 }

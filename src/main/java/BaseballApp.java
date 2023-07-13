@@ -35,7 +35,7 @@ public class BaseballApp {
         TeamDAO teamDAO = new TeamDAO(connection);
         PlayerDAO playerDAO = new PlayerDAO(connection);
         TeamService teamService = new TeamService(connection,teamDAO,playerDAO);
-        PlayerService playerService = new PlayerService(connection);
+        PlayerService playerService = new PlayerService(connection,playerDAO,teamDAO);
         OutPlayerDAO outPlayerDAO = new OutPlayerDAO(connection);
         OutPlayerService outPlayerService = new OutPlayerService(connection);
 
@@ -92,7 +92,7 @@ public class BaseballApp {
                     } else if (number == 8) {
                         outPlayerService.outPlayerList();
                     } else if (number == 9) {
-                        // 포지션별 목록 부분을 넣으면 됨(피벗)
+                        playerService.showMeThePlayer();
                     }
                 }
                 if (number == 10) {

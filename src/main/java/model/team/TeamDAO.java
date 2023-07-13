@@ -1,5 +1,6 @@
 package model.team;
 
+import dto.PositionRespDto;
 import dto.TeamRespDTO;
 import model.player.Player;
 import model.stadium.Stadium;
@@ -100,5 +101,45 @@ public class TeamDAO {
         }
         return team;
     }
+
+    public List<PositionRespDto> pivotStyle(int anythingTeamId, int teamId1, int teamId2, int teamId3) throws Exception {
+        List<PositionRespDto> dtos = new ArrayList<>();
+        String sql = "SELECT \n" +
+                "  MAX(IF(team_id = ?, p_tb.position, '')) AS position,\n" +
+                "  MAX(IF(team_id = ?, p_tb.name, '')) AS LG,\n" +
+                "  MAX(IF(team_id = ?, p_tb.name, '')) AS NC,\n" +
+                "  MAX(IF(team_id = ?, p_tb.name, '')) AS KIA\n" +
+                "FROM player p_tb\n" +
+                "INNER JOIN team t_tb ON p_tb.team_id = t_tb.id\n" +
+                "GROUP BY p_tb.position";
+
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, anythingTeamId);
+            statement.setInt(2, teamId1);
+            statement.setInt(3, teamId2);
+            statement.setInt(4, teamId3);
+
+            // 봐봐 윗부분까지는 jvm에서 sql구문을 이용해서 db 접근을 한다음 스캔을 한 상황이
+            // 여기 까지인거야
+            // 이제 밑에 부분에서는 jvm이 자바의 생태계로 다시 돌아와서
+            // 또 다른 일을 하는거야.
+
+            try (ResultSet rs = statement.executeQuery()) {
+                while (rs.next()) {
+                    PositionRespDto positionRespDto = PositionRespDto.builder()
+                            .postion(rs.getString("position"))
+                            .LG(rs.getString("LG"))
+                            .NC(rs.getString("NC"))
+                            .KIA(rs.getString("KIA"))
+                            .build();
+                    dtos.add(positionRespDto);
+                }
+            }
+        }
+        return dtos;
+
+    }
+
 
 }
