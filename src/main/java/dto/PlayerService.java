@@ -35,12 +35,13 @@ public class PlayerService {
 
     public void showMeThePlayer() throws Exception {
         List<PositionRespDto> dtos = teamDAO.pivotStyle(1, 1, 2, 3);
+        System.out.println("---------------- 포지션 목록 ----------------");
         System.out.println("포지션\t\tLG\t\t\tNC\t\t\tKIA");
         for (PositionRespDto dto : dtos) {
             System.out.println(dto.getPostion() + "  \t\t" + dto.getLG() + "\t\t" + dto.getNC() + "\t\t" + dto.getKIA());
 
         }
-
+        System.out.println("------------------------------------------");
 
     }
 
